@@ -191,4 +191,26 @@ public class ArrayUtil {
         return indexOf(array,value) > INDEX_NOT_FOUND;
     }
 
+    public static <T> T[] addAll(T[]... arrays){
+        if(arrays.length == 1){
+            return arrays[0];
+        }
+        int length = 0;
+        for(final T[] array : arrays){
+            if(isNotEmpty(array)){
+                length += array.length;
+            }
+        }
+        final T[] result = newArray(arrays.getClass().getComponentType().getComponentType(),length);
+
+        length = 0;
+        for(final T[] array : arrays){
+            if(isNotEmpty(array)){
+                System.arraycopy(array,0,result,length,array.length);
+                length += array.length;
+            }
+        }
+        return result;
+    }
+
 }

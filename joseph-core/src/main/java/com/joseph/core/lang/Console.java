@@ -17,10 +17,10 @@ public class Console {
     /**
      * 当传入template有"{}"时，被认为是模板，按顺序在模板中打印参数，舍弃多余的参数
      * 当传入template无"{}"时，被认为非模板，直接在template后打印多个参数（以空格分隔）
-     * @param template
-     * @param values
+     * @param template 输出打印模板
+     * @param values 模板中的值
      */
-    public static void print(String template,Object... values){
+    public static void log(String template, Object... values){
         if(ArrayUtil.isEmpty(values) || StrUtil.contains(template,TEMPLATE_VAR)){
             printInternal(template,values);
         }else{
@@ -40,7 +40,7 @@ public class Console {
      * @param len length of the progress bar
      */
     public static void printProgress(char showChar, int len){
-        print("Test Bar:{}{}", CharUtil.CR,StrUtil.repeat(showChar,len));
+        log("Test Bar:{}{}", CharUtil.CR,StrUtil.repeat(showChar,len));
     }
     public static void printProgress(char showChar, int totalLength,double ratio){
         Assert.isTrue(ratio >= 0 && ratio <=1, "Ratio must be in range of [0,1]");

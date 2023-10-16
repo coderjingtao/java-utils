@@ -168,7 +168,7 @@ public final class ReflectUtil {
     }
     //-----------------Method--------------------------------------------
 
-    public static Method[] getMthods(Class<?> beanClass){
+    public static Method[] getMethods(Class<?> beanClass){
         return getMethods(beanClass,true);
     }
     public static Method[] getMethods(Class<?> beanClass, boolean containSuperClassMethod){
@@ -192,7 +192,7 @@ public final class ReflectUtil {
         if(clazz == null || StrUtil.isBlank(methodName)){
             return null;
         }
-        final Method[] methods = getMthods(clazz);
+        final Method[] methods = getMethods(clazz);
         if(ArrayUtil.isNotEmpty(methods)){
             for(Method method : methods){
                 if(Objects.equals(method.getName(),methodName) && isAllAssignableFrom(method.getParameterTypes(),paramTypes) && !method.isBridge()){
