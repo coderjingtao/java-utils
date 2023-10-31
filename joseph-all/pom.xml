@@ -22,6 +22,16 @@
             <artifactId>joseph-bloomFilter</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.joseph</groupId>
+            <artifactId>joseph-json</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.joseph</groupId>
+            <artifactId>joseph-stateMachine</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -14,6 +14,8 @@
         <module>joseph-core</module>
         <module>joseph-bloomFilter</module>
         <module>joseph-all</module>
+        <module>joseph-json</module>
+        <module>joseph-stateMachine</module>
     </modules>
 
     <dependencyManagement>
