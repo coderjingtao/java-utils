@@ -111,5 +111,12 @@ public class CalendarUtil {
         return ceiling(calendar,DateField.MONTH);
     }
 
-
+    public static boolean isSameDay(Calendar calendar1, Calendar calendar2){
+        if(calendar1 == null || calendar2 == null){
+            throw new IllegalArgumentException("date must not be null");
+        }
+        return calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR) &&
+                calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
+                calendar1.get(Calendar.ERA) == calendar2.get(Calendar.ERA);
+    }
 }

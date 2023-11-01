@@ -40,12 +40,57 @@ public class DateUtil extends CalendarUtil{
     public static DateTime endOfWeek(Date date){
         return new DateTime(endOfWeek(toCalendar(date)));
     }
+    public static DateTime lastWeek(Date date){
+        return offsetWeek(date,-1);
+    }
+    public static DateTime nextWeek(Date date){
+        return offsetWeek(date,1);
+    }
+    /**
+     * next Monday
+     * @param date specific one day
+     * @return next Monday
+     */
+    public static DateTime beginOfNextWeek(Date date){
+        return beginOfWeek(nextWeek(date));
+    }
+    /**
+     * next Sunday
+     * @param date specific one day
+     * @return next Sunday
+     */
+    public static DateTime endOfNextWeek(Date date){
+        return endOfWeek(nextWeek(date));
+    }
+    /**
+     * next Friday
+     * @param date specific one day
+     * @return next Friday
+     */
+    public static DateTime endOfNextBusinessWeek(Date date){
+        return offsetDay(beginOfWeek(nextWeek(date)),4);
+    }
+    public static DateTime nextTuesday(Date date){
+        return offsetDay(beginOfWeek(nextWeek(date)),1);
+    }
+    public static DateTime nextWednesday(Date date){
+        return offsetDay(beginOfWeek(nextWeek(date)),2);
+    }
+
     public static DateTime beginOfMonth(Date date){
         return new DateTime(beginOfMonth(toCalendar(date)));
     }
-
     public static DateTime endOfMonth(Date date){
         return new DateTime(endOfMonth(toCalendar(date)));
+    }
+    public static DateTime lastMonth(Date date){
+        return offsetMonth(date,-1);
+    }
+    public static DateTime nextMonth(Date date){
+        return offsetMonth(date,1);
+    }
+    public static DateTime endOfNextMonth(Date date){
+        return endOfMonth(nextMonth(date));
     }
 
     public static DateTime offset(Date date, DateField dateField, int offset){
@@ -81,6 +126,21 @@ public class DateUtil extends CalendarUtil{
 
     public static DateTime parse(CharSequence dateStr, String format){
         return new DateTime(dateStr,format);
+    }
+
+    public static boolean isSameTime(Date date1, Date date2){
+        return date1.compareTo(date2) == 0;
+    }
+    public static boolean isSameDay(Date date1, Date date2){
+        return isSameDay(toCalendar(date1),toCalendar(date2));
+    }
+
+    public static boolean isIn(Date date, Date beginDate, Date endDate){
+        if(date instanceof DateTime){
+            return ((DateTime) date).isIn(beginDate,endDate);
+        }else{
+            return new DateTime(date).isIn(beginDate,endDate);
+        }
     }
 
 

@@ -1,5 +1,7 @@
 package com.joseph.core.date;
 
+import com.joseph.core.lang.Assert;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -160,5 +162,26 @@ public class DateTime extends Date {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * check if the current date is within a date frame
+     * @param beginDate the beginning date of range (included)
+     * @param endDate the end date of range (included)
+     * @return if within the time frame
+     */
+    public boolean isIn(Date beginDate, Date endDate){
+        long beginMills = beginDate.getTime();
+        long endMills = endDate.getTime();
+        long thisMills = this.getTime();
+        return thisMills >= Math.min(beginMills,endMills) && thisMills <= Math.max(beginMills,endMills);
+    }
+    public boolean isBefore(Date date){
+        Assert.notNull(date);
+        return compareTo(date) < 0;
+    }
+    public boolean isBeforeOrEquals(Date date){
+        Assert.notNull(date);
+        return compareTo(date) <= 0;
     }
 }

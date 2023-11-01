@@ -10,4 +10,9 @@ public interface Event {
      * @return the name of event
      */
     String name();
+
+    /**
+     * execute the event
+     */
+    void execute();
 }

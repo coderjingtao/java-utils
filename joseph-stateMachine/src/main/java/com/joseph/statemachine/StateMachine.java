@@ -1,5 +1,6 @@
 package com.joseph.statemachine;
 
+import com.joseph.statemachine.action.Action;
 import com.joseph.statemachine.event.Event;
 import com.joseph.statemachine.state.State;
 import com.joseph.statemachine.transition.Transition;
@@ -30,12 +31,17 @@ public class StateMachine implements IStateMachine {
     @Override
     synchronized public State onEvent(Event event) throws UnsupportedOperationException {
         List<Transition> sourceTransitions = transitionBox.getSourceTransitions(this.currentState);
-        return sourceTransitions
-                .stream()
-                .filter(transition -> Objects.equals(transition.getEvent(),event))
+        Transition transition = sourceTransitions.stream()
+                .filter(t -> Objects.equals(t.getEvent(), event))
                 .findFirst()
-                .orElseThrow(() -> new UnsupportedOperationException(String.format("Doesn't allow Event %s on State %s.",event.name(),currentState.name())))
-                .getTarget();
+                .orElseThrow(() -> new UnsupportedOperationException(String.format("Doesn't allow Event %s on State %s.", event.name(), currentState.name())));
+
+        event.execute();
+        Action action = transition.getAction();
+        if(action != null){
+            action.doAction();
+        }
+        return transition.getTarget();
     }
 
     @Override

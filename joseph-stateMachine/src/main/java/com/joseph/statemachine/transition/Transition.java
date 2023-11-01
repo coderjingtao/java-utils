@@ -1,5 +1,6 @@
 package com.joseph.statemachine.transition;
 
+import com.joseph.statemachine.action.Action;
 import com.joseph.statemachine.event.Event;
 import com.joseph.statemachine.state.State;
 
@@ -25,4 +26,10 @@ public interface Transition {
      * @return target state
      */
     State getTarget();
+
+    /**
+     * get the action of a transition
+     * @return action
+     */
+    Action getAction();
 }
