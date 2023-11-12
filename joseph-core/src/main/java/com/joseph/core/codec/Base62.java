@@ -30,7 +30,7 @@ public class Base62 {
     }
 
     public static String decodeStr(CharSequence source, Charset charset){
-        return StrUtil.toStr(decode(source),charset);
+        return StrUtil.str(decode(source),charset);
     }
 
     public static byte[] decode(CharSequence cs){

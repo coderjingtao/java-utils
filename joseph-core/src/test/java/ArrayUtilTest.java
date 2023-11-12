@@ -14,4 +14,9 @@ public class ArrayUtilTest {
         Integer[] all = ArrayUtil.addAll(b, a);
         System.out.println(Arrays.toString(all));
     }
+
+    @Test
+    public void testFloat(){
+        System.out.println(0.75f == .75f);
+    }
 }

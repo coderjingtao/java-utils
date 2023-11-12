@@ -30,7 +30,7 @@ public class StrFormatter {
             //replace {} with args
             else{
                 sb.append(template,handledPosition,placeholderPosition);
-                sb.append(StrUtil.utf8ToStr(args[i]));
+                sb.append(StrUtil.utf8Str(args[i]));
                 handledPosition = placeholderPosition + 2;
             }
         }
