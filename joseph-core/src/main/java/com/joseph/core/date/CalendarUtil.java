@@ -10,8 +10,6 @@ import java.util.TimeZone;
  */
 public class CalendarUtil {
 
-
-
     public static Calendar toCalendar(Date date){
         return toCalendar(date.getTime());
     }

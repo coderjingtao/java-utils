@@ -40,6 +40,9 @@ public class DateUtil extends CalendarUtil{
     public static DateTime endOfWeek(Date date){
         return new DateTime(endOfWeek(toCalendar(date)));
     }
+    public static DateTime endOfBusinessWeek(Date date){
+        return offsetDay(endOfWeek(date),-2);
+    }
     public static DateTime lastWeek(Date date){
         return offsetWeek(date,-1);
     }
@@ -68,10 +71,16 @@ public class DateUtil extends CalendarUtil{
      * @return next Friday
      */
     public static DateTime endOfNextBusinessWeek(Date date){
-        return offsetDay(beginOfWeek(nextWeek(date)),4);
+        return offsetDay(endOfWeek(nextWeek(date)),-2);
+    }
+    public static DateTime thisTuesday(Date date){
+        return offsetDay(beginOfWeek(date),1);
     }
     public static DateTime nextTuesday(Date date){
         return offsetDay(beginOfWeek(nextWeek(date)),1);
+    }
+    public static DateTime thisWednesday(Date date){
+        return offsetDay(beginOfWeek(date),2);
     }
     public static DateTime nextWednesday(Date date){
         return offsetDay(beginOfWeek(nextWeek(date)),2);

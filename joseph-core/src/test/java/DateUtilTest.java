@@ -20,9 +20,10 @@ public class DateUtilTest {
 
     @Test
     public void testNextFriday(){
-        DateTime invoiceDate = DateUtil.parse("2023-10-03", "yyyy-MM-dd");
+        DateTime invoiceDate = DateUtil.parse("2023-10-06", "yyyy-MM-dd");
+        DateTime thisFriday = DateUtil.endOfBusinessWeek(invoiceDate);
         DateTime nextFriday = DateUtil.endOfNextBusinessWeek(invoiceDate);
-        Console.log("invoiceDate = {}, nextFriday = {}",invoiceDate,nextFriday);
+        Console.log("invoiceDate = {}, thisFriday = {}, nextFriday = {}",invoiceDate,thisFriday,nextFriday);
     }
 
     @Test
