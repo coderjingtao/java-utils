@@ -1,9 +1,11 @@
 package com.joseph.statemachine;
 
+import com.joseph.statemachine.builder.FailCallback;
 import com.joseph.statemachine.state.State;
 import com.joseph.statemachine.state.StateHelper;
 import com.joseph.statemachine.transition.Transition;
 import com.joseph.statemachine.visitor.ConsoleVisitor;
+import com.joseph.statemachine.visitor.PlantUmlVisitor;
 import com.joseph.statemachine.visitor.Visitor;
 
 import java.util.List;
@@ -24,6 +26,8 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C>{
 
     private boolean ready;
 
+    private FailCallback<S, E, C> failCallback;
+
     public StateMachineImpl(Map<S, State<S,E,C>> stateMap){
         this.stateMap = stateMap;
     }
@@ -41,6 +45,7 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C>{
         isReady();
         Transition<S, E, C> transition = getTransition(sourceStateId, event, context);
         if(transition == null){
+            failCallback.onFail(sourceStateId,event,context);
             return sourceStateId;
         }
         return transition.transit(context,false).getId();
@@ -88,6 +93,12 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C>{
     }
 
     @Override
+    public String generatePlantUml() {
+        Visitor visitor = new PlantUmlVisitor();
+        return visit(visitor);
+    }
+
+    @Override
     public String visit(Visitor visitor) {
         StringBuilder sb = new StringBuilder();
         sb.append(visitor.visitOnEntry(this));
@@ -96,5 +107,9 @@ public class StateMachineImpl<S, E, C> implements StateMachine<S, E, C>{
         }
         sb.append(visitor.visitOnExit(this));
         return sb.toString();
+    }
+
+    public void setFailCallback(FailCallback<S, E, C> failCallback){
+        this.failCallback = failCallback;
     }
 }

@@ -33,4 +33,10 @@ public interface StateMachine<S,E,C> extends Visitable {
      * display the structure of the state machine
      */
     void showStateMachine();
+
+    /**
+     * generate the xml of PlantUML
+     * @return the xml string of PlantUML
+     */
+    String generatePlantUml();
 }

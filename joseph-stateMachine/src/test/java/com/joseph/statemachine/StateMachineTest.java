@@ -1,6 +1,7 @@
 package com.joseph.statemachine;
 
 import com.joseph.statemachine.action.Action;
+import com.joseph.statemachine.builder.FailCallback;
 import com.joseph.statemachine.builder.StateMachineBuilder;
 import com.joseph.statemachine.builder.StateMachineBuilderFactory;
 import com.joseph.statemachine.condition.Condition;
@@ -32,6 +33,14 @@ public class StateMachineTest {
     static class OrderContext{
         String orderId = "123456";
         String orderOperator = "Joseph.Liu";
+
+        @Override
+        public String toString() {
+            return "OrderContext{" +
+                    "orderId='" + orderId + '\'' +
+                    ", orderOperator='" + orderOperator + '\'' +
+                    '}';
+        }
     }
 
     private StateMachine<OrderState,OrderEvent,OrderContext> buildStateMachine(String machineId){
@@ -187,5 +196,41 @@ public class StateMachineTest {
             });
             thread.start();
         }
+    }
+
+    @Test
+    public void testCallback(){
+        StateMachineBuilder<OrderState,OrderEvent,OrderContext> builder = StateMachineBuilderFactory.create();
+        builder.externalTransition()
+                .from(OrderState.INIT)
+                .to(OrderState.PENDING_FULFILL)
+                .on(OrderEvent.CREATE_SO)
+                .when(checkOrderCondition())
+                .perform(doOrderAction());
+
+        builder.setFailCallback( (state,event, ctx) -> {
+            String orderId = ctx.orderId;
+            throw new IllegalStateException("Cannot fire event [" + event + "] on current state [" + state + "] with orderId [" + orderId + "]");
+        } );
+
+//        builder.setFailCallback(new AlertFailCallback<>());
+
+        StateMachine<OrderState, OrderEvent, OrderContext> stateMachine = builder.build(machineId);
+        Assert.assertThrows(IllegalStateException.class,() -> stateMachine.fireEvent(OrderState.PENDING_INVOICE,OrderEvent.CREATE_SO,new OrderContext()));
+    }
+
+    static class AlertFailCallback<S,E,C> implements FailCallback<S,E,C>{
+
+        @Override
+        public void onFail(S sourceState, E event, C cxt) {
+            throw new IllegalStateException("Cannot fire event [" + event + "] on current state [" + sourceState + "] with context [" + cxt + "]");
+        }
+    }
+
+    @Test
+    public void testGeneratePlantUml(){
+        StateMachine<OrderState, OrderEvent, OrderContext> stateMachine = buildStateMachine(machineId);
+        String xml = stateMachine.generatePlantUml();
+        System.out.println(xml);
     }
 }

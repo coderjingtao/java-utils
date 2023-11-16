@@ -13,5 +13,7 @@ public interface StateMachineBuilder<S, E, C> {
 
     InternalTransitionBuilder<S, E, C> internalTransition();
 
+    void setFailCallback(FailCallback<S,E,C> callback);
+
     StateMachine<S, E, C> build(String machineId);
 }
