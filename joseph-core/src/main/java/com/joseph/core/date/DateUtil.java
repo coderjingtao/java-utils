@@ -1,5 +1,6 @@
 package com.joseph.core.date;
 
+import com.joseph.core.comparator.CompareUtil;
 import com.joseph.core.lang.Assert;
 
 import java.text.SimpleDateFormat;
@@ -152,6 +153,7 @@ public class DateUtil extends CalendarUtil{
         }
     }
 
-
-
+    public static int compare(Date date1, Date date2){
+        return CompareUtil.compare(date1,date2);
+    }
 }
