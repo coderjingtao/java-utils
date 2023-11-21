@@ -77,7 +77,7 @@ public class StrUtil extends CharSequenceUtil{
     }
 
     public static String hashToBase62(String str){
-        int hash = Murmur3Hash.hash32(str);
+        int hash = HashUtil.murmur32(str);
         long num = hash < 0 ? Integer.MAX_VALUE - (long)hash : hash;
         return decimalToBase62(num);
     }

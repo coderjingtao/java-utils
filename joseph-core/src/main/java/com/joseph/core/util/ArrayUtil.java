@@ -189,6 +189,7 @@ public class ArrayUtil {
         return indexOf(array,value) > INDEX_NOT_FOUND;
     }
 
+    @SafeVarargs
     public static <T> T[] addAll(T[]... arrays){
         if(arrays.length == 1){
             return arrays[0];

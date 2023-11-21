@@ -1,4 +1,7 @@
-package com.joseph.core.util;
+package com.joseph.core.lang.hash;
+
+import com.joseph.core.util.ByteUtil;
+import com.joseph.core.util.StrUtil;
 
 import java.io.Serializable;
 import java.nio.ByteOrder;

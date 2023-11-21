@@ -4,6 +4,7 @@ import com.joseph.core.lang.Assert;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -50,12 +51,18 @@ public class DateTime extends Date {
     public DateTime(TimeZone timeZone){
         this(System.currentTimeMillis(),timeZone);
     }
-    public DateTime(long milliseconds, TimeZone timeZone){
-        super(milliseconds);
-        this.timeZone = timeZone;
+    public DateTime(long timeMillis, TimeZone timeZone){
+        super(timeMillis);
+        this.timeZone = timeZone == null ? TimeZone.getDefault() : timeZone;
     }
     public DateTime(CharSequence dateStr, String format){
         this(parse(dateStr,DateUtil.newSimpleDateFormat(format)));
+    }
+    public DateTime(Instant instant){
+        this(instant.toEpochMilli());
+    }
+    public DateTime(long timeMillis){
+        this(timeMillis,TimeZone.getDefault());
     }
     /**
      * static of()
@@ -112,6 +119,12 @@ public class DateTime extends Date {
         super.setTime(time);
         return this;
     }
+
+    @Override
+    public void setTime(long time) {
+        super.setTime(time);
+    }
+
     /**
      * get a part of a date: YEAR, MONTH, WEEK, DAY, TIME, AM, PM
      */

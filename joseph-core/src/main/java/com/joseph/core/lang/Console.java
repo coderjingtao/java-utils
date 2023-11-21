@@ -1,5 +1,6 @@
 package com.joseph.core.lang;
 
+import com.joseph.core.date.DateTime;
 import com.joseph.core.util.ArrayUtil;
 import com.joseph.core.util.CharUtil;
 import com.joseph.core.util.StrUtil;
@@ -22,13 +23,24 @@ public class Console {
      */
     public static void log(String template, Object... values){
         if(ArrayUtil.isEmpty(values) || StrUtil.contains(template,TEMPLATE_VAR)){
-            printInternal(template,values);
+            printInternal(true,template,values);
         }else{
-            printInternal(buildTemplateSplitBySpace(values.length + 1),ArrayUtil.insert(values,0,template));
+            printInternal(true,buildTemplateSplitBySpace(values.length + 1),ArrayUtil.insert(values,0,template));
         }
     }
-    private static void printInternal(String template, Object... values){
-        out.println(StrUtil.format(template,values));
+    public static void print(String template, Object... values){
+        if(ArrayUtil.isEmpty(values) || StrUtil.contains(template,TEMPLATE_VAR)){
+            printInternal(false,template,values);
+        }else{
+            printInternal(false,buildTemplateSplitBySpace(values.length + 1),ArrayUtil.insert(values,0,template));
+        }
+    }
+    private static void printInternal(boolean hasTimestamp, String template, Object... values){
+        if(!hasTimestamp){
+            out.print(StrUtil.format(template,values));
+        }else{
+            out.printf("[%s] %s%n", DateTime.now(),StrUtil.format(template,values));
+        }
     }
 
     private static String buildTemplateSplitBySpace(int count){
@@ -40,10 +52,14 @@ public class Console {
      * @param len length of the progress bar
      */
     public static void printProgress(char showChar, int len){
-        log("Test Bar:{}{}", CharUtil.CR,StrUtil.repeat(showChar,len));
+        print("{}{}", CharUtil.CR,StrUtil.repeat(showChar,len));
     }
-    public static void printProgress(char showChar, int totalLength,double ratio){
+    public static void printProgress(char showChar, int totalLength, double ratio){
         Assert.isTrue(ratio >= 0 && ratio <=1, "Ratio must be in range of [0,1]");
         printProgress(showChar, (int)(totalLength * ratio) );
+    }
+    public static void progress(String task, int current, int total){
+        double progress = 100 * (double) current / total;
+        out.printf("[%s] Task [%s] current progress: %.2f%%%n",DateTime.now(),task,progress);
     }
 }

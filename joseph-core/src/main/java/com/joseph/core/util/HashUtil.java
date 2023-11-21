@@ -1,5 +1,7 @@
 package com.joseph.core.util;
 
+import com.joseph.core.lang.hash.Murmur3Hash;
+
 /**
  * @author Joseph.Liu
  */
@@ -89,5 +91,14 @@ public class HashUtil {
         }
 
         return hash & 0x7FFFFFFF;
+    }
+
+    /**
+     * MurmurHash 32-bit
+     * @param str data string
+     * @return hash value
+     */
+    public static int murmur32(String str){
+        return Murmur3Hash.hash32(str);
     }
 }
