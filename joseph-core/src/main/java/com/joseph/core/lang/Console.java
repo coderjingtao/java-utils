@@ -37,7 +37,7 @@ public class Console {
     }
     private static void printInternal(boolean hasTimestamp, String template, Object... values){
         if(!hasTimestamp){
-            out.print(StrUtil.format(template,values));
+            out.println(StrUtil.format(template,values));
         }else{
             out.printf("[%s] %s%n", DateTime.now(),StrUtil.format(template,values));
         }

@@ -8,13 +8,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author joseph
- * @create 2023-11-12
+ * @since  2023-11-12
  */
 public class ListUtil {
+
     // ----------------  new list -------------------
+
     public static <T> List<T> list(boolean  isLinked){
         return isLinked ? new LinkedList<>() : new ArrayList<>();
     }
+    @SafeVarargs
     public static <T> List<T> list(boolean isLinked, T... data){
         if(ArrayUtil.isEmpty(data)){
             return list(isLinked);
@@ -29,18 +32,21 @@ public class ListUtil {
         }
         return isLinked ? new LinkedList<>(collection) : new ArrayList<>(collection);
     }
+    @SafeVarargs
     public static <T> ArrayList<T> toList(T... data){
         return (ArrayList<T>) list(false,data);
     }
     public static <T> ArrayList<T> toList(Collection<T> collection){
         return (ArrayList<T>) list(false,collection);
     }
+    @SafeVarargs
     public static <T> LinkedList<T> toLinkedList(T... data){
         return (LinkedList<T>) list(true,data);
     }
     public static <T> LinkedList<T> toLinkedList(Collection<T> collection){
         return (LinkedList<T>) list(true,collection);
     }
+    @SafeVarargs
     public static <T> List<T> of(T... data){
         return ArrayUtil.isEmpty(data) ? Collections.emptyList() : Collections.unmodifiableList(toList(data));
     }
@@ -78,5 +84,20 @@ public class ListUtil {
             //通过clone的list不可编辑，新建列表
             return reverse(list(false,list));
         }
+    }
+
+    // ----------------  partition list -------------------
+
+    public static <T> List<List<T>> partition(List<T> list, int size){
+        if(CollUtil.isEmpty(list)){
+            return Collections.emptyList();
+        }
+        return new Partition<>(list,size);
+    }
+    public static <T> List<List<T>> avgPartition(List<T> list, int limit){
+        if(CollUtil.isEmpty(list)){
+            return Collections.emptyList();
+        }
+        return new AvgPartition<>(list,limit);
     }
 }

@@ -1,17 +1,18 @@
 package com.joseph.core.collection;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import com.joseph.core.map.MapUtil;
+
+import java.util.*;
 
 /**
  * @author joseph
- * @create 2023-11-12
+ * @since 2023-11-12
  */
 public class CollUtil {
 
     // ----------------  new set -------------------
+
+
     public static <T> HashSet<T> newHashSet(Collection<T> collection){
         return newHashSet(false,collection);
     }
@@ -36,9 +37,41 @@ public class CollUtil {
 
     // ----------------  new list -------------------
 
+    public static <T> ArrayList<T> newArrayList(T... data){
+        return ListUtil.toList(data);
+    }
+    public static <T> ArrayList<T> toList(T... array){
+        return ListUtil.toList(array);
+    }
+    public static <T> ArrayList<T> newArrayList(Collection<T> collection){
+        return ListUtil.toList(collection);
+    }
 
-    // ----------------  isEmpty  -------------------
+    public static <T> LinkedList<T> newLinkedList(T... data){
+        return ListUtil.toLinkedList(data);
+    }
+
+    // ----------------  isEmpty / isNotEmpty -------------------
+
+
     public static boolean isEmpty(Collection<?> collection){
         return collection == null || collection.isEmpty();
     }
+    public static boolean isEmpty(Map<?,?> map){
+        return MapUtil.isEmpty(map);
+    }
+
+    public static boolean isNotEmpty(Collection<?> collection) { return !isEmpty(collection); }
+    public static boolean isNotEmpty(Map<?,?> map){
+        return MapUtil.isNotEmpty(map);
+    }
+
+
+    public static boolean contains(Collection<?> collection, Object value){
+        return isNotEmpty(collection) && collection.contains(value);
+    }
+
+
+
+
 }

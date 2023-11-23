@@ -3,6 +3,7 @@ package com.joseph.core.util;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 
 /**
  * String Tools
@@ -82,5 +83,8 @@ public class StrUtil extends CharSequenceUtil{
         return decimalToBase62(num);
     }
 
-
+    public static boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        return pattern.matcher(str).matches();
+    }
 }

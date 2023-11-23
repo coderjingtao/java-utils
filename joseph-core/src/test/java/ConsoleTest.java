@@ -11,6 +11,8 @@ public class ConsoleTest {
     public void logTest() {
         Console.log("my name is {}","joseph");
         Console.print("my name is {}","joseph");
+        Console.print("my name is {}","joseph");
+        Console.print("my name is {}","joseph");
     }
 
     @Test
