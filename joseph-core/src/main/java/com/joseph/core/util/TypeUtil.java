@@ -222,7 +222,7 @@ public class TypeUtil {
 
     public static Type getActualType(Type type, Type typeVariable){
         if(typeVariable instanceof ParameterizedType){
-            return getAcutalType(type,(ParameterizedType)typeVariable);
+            return getActualType(type,(ParameterizedType)typeVariable);
         }
         if(typeVariable instanceof TypeVariable){
             return ActualTypeMappingPool.getActualType(type,(TypeVariable<?>)typeVariable);
@@ -237,7 +237,7 @@ public class TypeUtil {
      * @param parameterizedType 泛型变量，List<T> items
      * @return T对应的实际类型
      */
-    public static Type getAcutalType(Type type, ParameterizedType parameterizedType){
+    public static Type getActualType(Type type, ParameterizedType parameterizedType){
 
         // 字段类型为泛型参数类型，解析对应泛型类型为真实类型，类似于:Map<K,V> map
         Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
