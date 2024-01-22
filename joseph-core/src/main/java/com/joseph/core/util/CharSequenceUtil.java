@@ -16,6 +16,10 @@ public class CharSequenceUtil {
         return charSequence == null || charSequence.length() == 0;
     }
 
+    public static boolean isNotEmpty(CharSequence charSequence){
+        return !isEmpty(charSequence);
+    }
+
     /**
      * The difference from isEmpty() is this method will validate blank characters including Space, Tab
      * But it's less efficient than isEmpty()
@@ -31,6 +35,10 @@ public class CharSequenceUtil {
             }
         }
         return true;
+    }
+
+    public static boolean isNotBlank(CharSequence charSequence){
+        return !isBlank(charSequence);
     }
 
     public static boolean contains(CharSequence charSequence, char searchChar){
