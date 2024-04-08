@@ -44,6 +44,17 @@ public class ArrayUtil {
         return Array.getLength(array);
     }
 
+    public static <T> boolean hasNull(T... array){
+        if(isNotEmpty(array)){
+            for(T ele : array){
+                if(ObjUtil.isNull(ele)){
+                    return true;
+                }
+            }
+        }
+        return array == null;
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> T[] newArray(Class<?> elementType, int size){
         return (T[]) Array.newInstance(elementType,size);

@@ -32,6 +32,11 @@
             <artifactId>joseph-stateMachine</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.joseph</groupId>
+            <artifactId>joseph-extra</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
     <properties>
