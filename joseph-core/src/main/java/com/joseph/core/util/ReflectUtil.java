@@ -166,6 +166,29 @@ public final class ReflectUtil {
         final Field[] fields = getFields(beanClass);
         return ArrayUtil.firstMatched( field -> fieldName.equals(getFieldName(field)), fields);
     }
+    public static Object getFieldValue(Object obj, String fieldName){
+        if(obj == null || StrUtil.isBlank(fieldName)){
+            return null;
+        }
+        return getFieldValue(obj,getField(obj.getClass(),fieldName));
+    }
+    public static Object getFieldValue(Object obj, Field field){
+        if(field == null){
+            return null;
+        }
+        //静态字段获取时，obj 应为null
+        if(obj instanceof Class){
+            obj = null;
+        }
+        setAccessible(field);
+        Object result = null;
+        try {
+            result = field.get(obj);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
     //-----------------Method--------------------------------------------
 
     public static Method[] getMethods(Class<?> beanClass){
