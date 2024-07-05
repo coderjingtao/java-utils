@@ -1,5 +1,7 @@
 package com.joseph.core.util;
 
+import com.joseph.core.text.StrPool;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -9,8 +11,8 @@ import java.util.regex.Pattern;
  * String Tools
  * @author Joseph.Liu
  */
-public class StrUtil extends CharSequenceUtil{
-    public static final String EMPTY_JSON = "{}";
+public class StrUtil extends CharSequenceUtil implements StrPool {
+
     public static final String UTF_8 = "UTF-8";
     public static final Charset CHARSET_UTF_8 = StandardCharsets.UTF_8;
 
